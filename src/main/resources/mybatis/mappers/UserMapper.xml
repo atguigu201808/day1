@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace作用:命名空间,可以随便命名,但使用动态代理dao开发时,有特殊含义  -->
+<!-- 
+	动态代理Dao开发规范 
+	1.namespace 必须是mapper接口的全类路径名
+	2.statement的id标识必须mapper接口中的方法名
+	3.输入参数必须与mapper接口中的方法参数一致
+	4.输出参数必须与mapper接口中的返回值一致
+-->
+<mapper namespace="com.atguigu.mapper.UserMapper">
+	<select id="queryByid" parameterType="Long" resultType="User">
+		select * from User WHERE id = #{id};
+	</select>
+
+    <select id="queryAll" resultType="User">
+        SELECT * FROM USER ;
+    </select>
+
+    <select id="queryByName" parameterType="String" resultType="User">
+        SELECT * FROM USER WHERE username = #{username}
+        ;
+
+    </select>
+
+    <delete id="deleteById" parameterType="Long" >
+        DELETE FROM `user` WHERE id = #{id};
+    </delete>
+
+    <insert id="addUser" parameterType="User" >
+        INSERT INTO USER (username,password,phone,email)
+        VALUES (#{username},#{password},#{phone}, #{email});
+    </insert>
+
+    <update id="updateUser" parameterType="User" >
+        UPDATE USER SET id=#{id},username=#{username},
+        password=#{password},phone=#{phone},email=#{email}
+        WHERE id = #{id};
+
+    </update>
+</mapper>
